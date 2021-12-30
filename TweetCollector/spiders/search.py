@@ -107,7 +107,6 @@ class SearchSpider(CrawlSpider):
         if self.at_limit:
             raise CloseSpider('Limit Reached')
         data = json.loads(response.text)
-        print(data)
         for item in self.parse_tweet_item(data['globalObjects']['tweets']):
             yield item
         for item in self.parse_user_item(data['globalObjects']['users']):

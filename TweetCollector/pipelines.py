@@ -6,8 +6,8 @@ from scrapy.utils.project import get_project_settings
 from scrapy.exceptions import DropItem, CloseSpider
 from scrapy.exporters import JsonLinesItemExporter
 
-from TweetScraper.items import Tweet, User
-from TweetScraper.utils import mkdirs
+from TweetCollector.items import Tweet, User
+from TweetCollector.utils import mkdirs
 
 SETTINGS = get_project_settings()
 
