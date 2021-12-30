@@ -1,0 +1,4 @@
+scrapy
+scrapy-selenium
+ipython
+ipdb
