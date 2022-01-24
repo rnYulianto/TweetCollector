@@ -23,12 +23,12 @@ class SearchSpider(CrawlSpider):
         if kwargs.get('year', None):
             query += f" until:{kwargs.get('year')}"
         if kwargs.get('since', None):
-            query += f" since: {kwargs.since}"
+            query += f" since:{kwargs.get('since')}"
         if kwargs.get('until', None):
-            query += f" until: {kwargs.until}"
+            query += f" until:{kwargs.get('until')}"
 
         self.url = (
-            f'https://api.twitter.com/2/search/adaptive.json?'
+            f'https://twitter.com/i/api/2/search/adaptive.json?'
             f'include_profile_interstitial_type=1'
             f'&include_blocking=1'
             f'&include_blocked_by=1'

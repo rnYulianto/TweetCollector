@@ -1,4 +1,6 @@
 data/
 pyenv/
 
-*.pyc
+**/*.pyc
+**/*.exe
+**/*.log
