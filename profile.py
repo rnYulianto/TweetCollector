@@ -7,7 +7,7 @@ from urllib.parse import quote, unquote
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-from utils import get_cookies
+from utils import get_cookies, mkdirs
 
 class Profile():
     requests_count = 0
@@ -33,6 +33,7 @@ class Profile():
     tweets = []
 
     def __init__(self, username, limit):
+        mkdirs('./data')
         self.username = username
         self.limit = limit
 
@@ -91,7 +92,7 @@ class Profile():
             self.start_request(cursor)
         else:
             date_now = datetime.now().strftime("%H-%M-%S %d-%m-%Y")
-            with open(f'{self.username}-tweets_{date_now}.json', 'w') as outfile:
+            with open(f'./data/{self.username}-tweets_{date_now}.json', 'w') as outfile:
                 json.dump(self.tweets, outfile)
 
 parser = argparse.ArgumentParser(description='Script to get tweet from certain user.')
