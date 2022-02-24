@@ -1,6 +1,2 @@
-data/
-pyenv/
-
-**/*.pyc
-**/*.exe
-**/*.log
+**/data
+*.pyc
