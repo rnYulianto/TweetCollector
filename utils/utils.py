@@ -54,12 +54,10 @@ def get_cookies(username = False, replies=False):
         # Visit random profile
         url = 'https://twitter.com/abc'
     driver.get(url)
-    time.sleep(3)
+    time.sleep(5)
 
     browser_log = driver.get_log('performance') 
     events = [process_browser_log_entry(entry) for entry in browser_log]
-    userByScreenName = [event for event in events if 'Network.response' in event['method'] and 'UserByScreenName' in event['params'].get('response', {}).get('url', '')][0]
-    userTweets = [event for event in events if 'Network.response' in event['method'] and 'UserTweets' in event['params'].get('response', {}).get('url', '')][0]
 
     ''' Extract cookies and token from received cookies '''
     cookies = None
@@ -69,6 +67,8 @@ def get_cookies(username = False, replies=False):
     url_profile_token = {}
 
     try:
+        userByScreenName = [event for event in events if 'Network.response' in event['method'] and 'UserByScreenName' in event['params'].get('response', {}).get('url', '')][0]
+        userTweets = [event for event in events if 'Network.response' in event['method'] and 'UserTweets' in event['params'].get('response', {}).get('url', '')][0]
         cookies = driver.get_cookies()
         x_guest_token = driver.get_cookie('gt')['value']
         # self.x_csrf_token = driver.get_cookie('ct0')['value']

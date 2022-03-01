@@ -1,8 +1,4 @@
-import json
 import requests
-import argparse
-from datetime import datetime
-from utils.Settings import Settings
 from utils.utils import get_settings, mkdirs, get_cookies
 
 from abc import ABC, abstractmethod
@@ -33,7 +29,12 @@ class BaseScraper(ABC):
         return cookies
     
     def update_cookies(self, username=False):
-        self.cookies, self.headers, self.userid, self.url_profile_token = get_cookies(username)
+        cookies, headers, userid, url_profile_token = get_cookies(username)
+        if cookies:
+            self.cookies = cookies
+            self.headers = headers
+            self.userid = userid
+            self.url_profile_token = url_profile_token
     
     @abstractmethod
     def start_request(self, cursor=None):
