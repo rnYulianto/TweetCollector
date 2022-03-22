@@ -50,16 +50,12 @@ class Search(BaseScraper):
         self.judul = query # menambah variabel judul
         if username:
             self.query += f" from:{username}"
-            self.judul += f" from_{username}"
         if year:
             self.query += f" until:{year}"
-            self.judul += f" year_{year}"
         if since:
             self.query += f" since:{since}" 
-            self.judul += f" since_{since}"
         if until:
             self.query += f" until:{until}"
-            self.judul += f" until_{until}"
 
     def get_url(self, url, query, cursor=None):
         if cursor:

@@ -6,7 +6,6 @@ from core.base_scraper import BaseScraper
 
 class Profile(BaseScraper):
     base_url = "https://twitter.com/i/api/graphql/{user_tweets_url_token}/UserTweets?variables="
-    # base_url = "https://twitter.com/i/api/graphql/{user_tweets_url_token}/UserTweetsAndReplies?variables="
     url_params = {
         # "withCommunity": True,
         "userId":"",
@@ -62,15 +61,16 @@ class Profile(BaseScraper):
 
         cur_cursor = self.get_cursor_id(tweet_entries)
         cur_tweet = [tweet for tweet in tweet_entries['entries'] if 'tweet' in tweet['entryId']]
-        cur_tweet = [tweet['content']['itemContent']['tweet_results']['result']['legacy'] for tweet in cur_tweet]
-        self.tweets += cur_tweet
+        if len(cur_tweet)>0:
+            cur_tweet = [tweet['content']['itemContent']['tweet_results']['result']['legacy'] for tweet in cur_tweet]
+            self.tweets += cur_tweet
 
         print(f'Tweet in memory = {len(self.tweets)}')
         print(f'Limit = {self.limit}')
         print(f'cursor = {cursor}, next cursor = {cur_cursor}')
         print('---------------------------------------------------------')
 
-        if (cur_cursor != cursor  and self.limit == 0) or len(self.tweets)<self.limit:
+        if ((cur_cursor != cursor  and self.limit == 0) or len(self.tweets)<self.limit) and len(cur_tweet):
             self.start_request(cur_cursor)
         else:
             date_now = datetime.now().strftime("%H-%M-%S %d-%m-%Y")
