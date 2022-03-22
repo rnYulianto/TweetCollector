@@ -5,6 +5,8 @@ import json
 import argparse
 from datetime import datetime
 from urllib.parse import quote
+
+from numpy import source
 from core.base_scraper import BaseScraper
 
 class Search(BaseScraper):
@@ -45,14 +47,19 @@ class Search(BaseScraper):
     def __init__(self, query, username, limit, year, since, until):
         super().__init__(limit)
         self.query = query
+        self.judul = query # menambah variabel judul
         if username:
             self.query += f" from:{username}"
+            self.judul += f" from_{username}"
         if year:
             self.query += f" until:{year}"
+            self.judul += f" year_{year}"
         if since:
-            self.query += f" since:{since}"
+            self.query += f" since:{since}" 
+            self.judul += f" since_{since}"
         if until:
             self.query += f" until:{until}"
+            self.judul += f" until_{until}"
 
     def get_url(self, url, query, cursor=None):
         if cursor:
@@ -99,9 +106,9 @@ class Search(BaseScraper):
             self.start_request(cur_cursor)
         else:
             date_now = datetime.now().strftime("%H-%M-%S %d-%m-%Y")
-            with open(self.settings.get('DATA_DIR') / f'query-{self.query}-tweets_{date_now}.json', 'w') as outfile:
+            with open(self.settings.get('DATA_DIR') / f'query-{self.judul}-tweets.json', 'w') as outfile:
                 json.dump(self.tweets, outfile)
-            with open(self.settings.get('DATA_DIR') / f'query-{self.query}-users_{date_now}.json', 'w') as outfile:
+            with open(self.settings.get('DATA_DIR') / f'query-{self.judul}-users.json', 'w') as outfile:
                 json.dump(self.tweets, outfile)
 
 parser = argparse.ArgumentParser(description='Script to get tweet from certain user.')
