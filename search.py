@@ -105,7 +105,7 @@ class Search(BaseScraper):
             with open(self.settings.get('DATA_DIR') / f'query-{self.judul}-tweets.json', 'w') as outfile:
                 json.dump(self.tweets, outfile)
             with open(self.settings.get('DATA_DIR') / f'query-{self.judul}-users.json', 'w') as outfile:
-                json.dump(self.tweets, outfile)
+                json.dump(self.users, outfile)
 
 parser = argparse.ArgumentParser(description='Script to get tweet from certain user.')
 parser.add_argument("-q", "--query")
